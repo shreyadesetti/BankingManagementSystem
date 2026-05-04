@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,44 +15,50 @@ namespace BankingManagementSystem.Controllers
             _context = context;
         }
 
-        // GET: Accounts
-        public async Task<IActionResult> Index()
+        private SelectList GetCustomerSelectList(int? selectedCustomerId = null)
         {
-            var applicationDbContext = _context.Accounts.Include(a => a.Branch).Include(a => a.Customer);
-            return View(await applicationDbContext.ToListAsync());
+            var customers = _context.Customers
+                .Select(c => new
+                {
+                    c.CustomerId,
+                    FullName = c.FirstName + " " + c.LastName
+                })
+                .ToList();
+
+            return new SelectList(customers, "CustomerId", "FullName", selectedCustomerId);
         }
 
-        // GET: Accounts/Details/5
+        public async Task<IActionResult> Index()
+        {
+            var accounts = _context.Accounts
+                .Include(a => a.Branch)
+                .Include(a => a.Customer);
+
+            return View(await accounts.ToListAsync());
+        }
+
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var account = await _context.Accounts
                 .Include(a => a.Branch)
                 .Include(a => a.Customer)
                 .FirstOrDefaultAsync(m => m.AccountId == id);
-            if (account == null)
-            {
-                return NotFound();
-            }
+
+            if (account == null) return NotFound();
 
             return View(account);
         }
 
-        // GET: Accounts/Create
         public IActionResult Create()
         {
             ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName");
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Address");
+            ViewData["CustomerId"] = GetCustomerSelectList();
+
             return View();
         }
 
-        // POST: Accounts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AccountId,AccountNumber,CustomerId,BranchId,AccountType,Balance,OpenDate,AccountStatus,CreatedAt,UpdatedAt")] Account account)
@@ -67,40 +69,32 @@ namespace BankingManagementSystem.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName", account.BranchId);
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Address", account.CustomerId);
+            ViewData["CustomerId"] = GetCustomerSelectList(account.CustomerId);
+
             return View(account);
         }
 
-        // GET: Accounts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var account = await _context.Accounts.FindAsync(id);
-            if (account == null)
-            {
-                return NotFound();
-            }
+
+            if (account == null) return NotFound();
+
             ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName", account.BranchId);
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Address", account.CustomerId);
+            ViewData["CustomerId"] = GetCustomerSelectList(account.CustomerId);
+
             return View(account);
         }
 
-        // POST: Accounts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AccountId,AccountNumber,CustomerId,BranchId,AccountType,Balance,OpenDate,AccountStatus,CreatedAt,UpdatedAt")] Account account)
         {
-            if (id != account.AccountId)
-            {
-                return NotFound();
-            }
+            if (id != account.AccountId) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -112,53 +106,47 @@ namespace BankingManagementSystem.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!AccountExists(account.AccountId))
-                    {
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+
+                    throw;
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "BranchName", account.BranchId);
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "Address", account.CustomerId);
+            ViewData["CustomerId"] = GetCustomerSelectList(account.CustomerId);
+
             return View(account);
         }
 
-        // GET: Accounts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var account = await _context.Accounts
                 .Include(a => a.Branch)
                 .Include(a => a.Customer)
                 .FirstOrDefaultAsync(m => m.AccountId == id);
-            if (account == null)
-            {
-                return NotFound();
-            }
+
+            if (account == null) return NotFound();
 
             return View(account);
         }
 
-        // POST: Accounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var account = await _context.Accounts.FindAsync(id);
+
             if (account != null)
             {
                 _context.Accounts.Remove(account);
             }
 
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

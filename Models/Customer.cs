@@ -36,5 +36,10 @@ namespace BankingManagementSystem.Models
 
         public ICollection<Account> Accounts { get; set; } = new List<Account>();
         public ICollection<Loan> Loans { get; set; } = new List<Loan>();
+
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
+        }
     }
 }
