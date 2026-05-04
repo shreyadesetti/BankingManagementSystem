@@ -1,8 +1,102 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model BankingManagementSystem.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="dashboard-hero mb-4">
+    <div class="hero-overlay">
+        <h1>Banking Management Dashboard</h1>
+        <p>Manage customers, branches, accounts, and banking transactions from one place.</p>
+
+        <div class="quick-actions mt-4">
+            <a class="btn btn-light me-2 mb-2" asp-controller="Customers" asp-action="Create">Add Customer</a>
+            <a class="btn btn-outline-light me-2 mb-2" asp-controller="Branches" asp-action="Create">Add Branch</a>
+            <a class="btn btn-outline-light me-2 mb-2" asp-controller="Accounts" asp-action="Create">Create Account</a>
+            <a class="btn btn-warning me-2 mb-2" asp-controller="BankTransactions" asp-action="Create">Deposit / Withdraw</a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <a class="dashboard-card-link" asp-controller="Customers" asp-action="Index">
+            <div class="dashboard-card">
+                <h5>Total Customers</h5>
+                <h2>@Model.TotalCustomers</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a class="dashboard-card-link" asp-controller="Branches" asp-action="Index">
+            <div class="dashboard-card">
+                <h5>Total Branches</h5>
+                <h2>@Model.TotalBranches</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a class="dashboard-card-link" asp-controller="Accounts" asp-action="Index">
+            <div class="dashboard-card">
+                <h5>Total Accounts</h5>
+                <h2>@Model.TotalAccounts</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a class="dashboard-card-link" asp-controller="Accounts" asp-action="Index">
+            <div class="dashboard-card">
+                <h5>Total Balance</h5>
+                <h2>@Model.TotalBalance.ToString("C")</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a class="dashboard-card-link" asp-controller="Accounts" asp-action="Index">
+            <div class="dashboard-card">
+                <h5>Average Balance</h5>
+                <h2>@Model.AverageBalance.ToString("C")</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a class="dashboard-card-link" asp-controller="BankTransactions" asp-action="Index">
+            <div class="dashboard-card">
+                <h5>Total Transactions</h5>
+                <h2>@Model.TotalTransactions</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a class="dashboard-card-link" asp-controller="BankTransactions" asp-action="Index">
+            <div class="dashboard-card">
+                <h5>Total Transaction Amount</h5>
+                <h2>@Model.TotalTransactionAmount.ToString("C")</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a class="dashboard-card-link" asp-controller="Loans" asp-action="Index">
+            <div class="dashboard-card">
+                <h5>Total Loans</h5>
+                <h2>@Model.TotalLoans</h2>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a class="dashboard-card-link" asp-controller="Loans" asp-action="Index">
+            <div class="dashboard-card">
+                <h5>Total Loan Amount</h5>
+                <h2>@Model.TotalLoanAmount.ToString("C")</h2>
+            </div>
+        </a>
+    </div>
 </div>
