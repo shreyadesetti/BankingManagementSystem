@@ -38,7 +38,13 @@ public class HomeController : Controller
 
             TotalTransactionAmount = await _context.BankTransactions.AnyAsync()
                 ? await _context.BankTransactions.SumAsync(t => t.Amount)
-                : 0
+                : 0,
+            
+            TotalLoans = await _context.Loans.CountAsync(),
+
+            TotalLoanAmount = await _context.Loans.AnyAsync()
+                ? await _context.Loans.SumAsync(l => l.LoanAmount)
+                : 0,
         };
 
         return View(model);

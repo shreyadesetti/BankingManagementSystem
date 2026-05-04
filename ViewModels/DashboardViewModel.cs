@@ -9,5 +9,7 @@ namespace BankingManagementSystem.ViewModels
         public decimal AverageBalance { get; set; }
         public int TotalTransactions { get; set; }
         public decimal TotalTransactionAmount { get; set; }
+        public int TotalLoans { get; set; }
+        public decimal TotalLoanAmount { get; set; }
     }
 }

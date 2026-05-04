@@ -41,5 +41,7 @@ namespace BankingManagementSystem.Models
         {
             return $"{FirstName} {LastName}";
         }
+
+        public string FullName => FirstName + " " + LastName;
     }
 }

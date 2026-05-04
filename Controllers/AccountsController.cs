@@ -21,11 +21,11 @@ namespace BankingManagementSystem.Controllers
                 .Select(c => new
                 {
                     c.CustomerId,
-                    FullName = c.FirstName + " " + c.LastName
+                    Display = "ID: " + c.CustomerId + " - " + c.FirstName + " " + c.LastName
                 })
                 .ToList();
 
-            return new SelectList(customers, "CustomerId", "FullName", selectedCustomerId);
+            return new SelectList(customers, "CustomerId", "Display", selectedCustomerId);
         }
 
         public async Task<IActionResult> Index()
