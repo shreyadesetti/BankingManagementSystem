@@ -1,4 +1,3 @@
--- schema.sql
 -- Banking Management System
 -- Final SQL Schema in 3rd Normal Form
 
