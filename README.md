@@ -81,10 +81,7 @@ This proves a one-to-many relationship between Customers and Accounts.
 # Database Setup
 
 ## Step 1: Clone Repository
-
-```bash
 git clone <YOUR_GITHUB_REPOSITORY_URL>
-```
 
 ---
 
@@ -102,37 +99,25 @@ OR
 
 Update `appsettings.json`:
 
-```json
 "ConnectionStrings": {
   "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=BankingManagementDB;Trusted_Connection=True;MultipleActiveResultSets=true"
 }
-```
 
 ---
 
 ## Step 4: Run Entity Framework Migration
-
-```bash
 dotnet ef database update
-```
 
 This command automatically creates the SQL Server database and tables.
 
 ---
 
 # Running the Application
-
 Run the project:
-
-```bash
 dotnet run
-```
 
 Application URL:
-
-```text
 http://localhost:5125
-```
 
 ---
 
