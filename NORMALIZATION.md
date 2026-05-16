@@ -20,50 +20,35 @@ The database contains the following main entities:
 # Original Functional Dependencies
 
 ## Customers Table
-
-```text
 CustomerId → FirstName, LastName, Phone, Email, Address, DateOfBirth, CreatedAt, UpdatedAt
-```
 
 ---
 
 ## Branches Table
-
-```text
 BranchId → BranchName, City, State, ManagerName, CreatedAt, UpdatedAt
-```
+
 
 ---
 
 ## Accounts Table
-
-```text
 AccountId → AccountNumber, CustomerId, BranchId, AccountType, Balance, OpenDate, AccountStatus, CreatedAt, UpdatedAt
-```
+
 
 Also:
-
-```text
 AccountNumber → AccountId
-```
 
 because account numbers are unique.
 
 ---
 
 ## Loans Table
-
-```text
 LoanId → CustomerId, BranchId, LoanType, LoanAmount, InterestRate, StartDate, EndDate, LoanStatus, CreatedAt, UpdatedAt
-```
+
 
 ---
 
 ## BankTransactions Table
-
-```text
 TransactionId → AccountId, TransactionType, Amount, TransactionDate, Description, CreatedAt, UpdatedAt
-```
 
 ---
 
@@ -76,11 +61,8 @@ Before normalization, combining customer, account, branch, and loan information 
 If customer information is repeated across multiple account rows, updating a customer address would require updating many records.
 
 Example:
-
-```text
 Customer "Ava Mitchell" appears in multiple account rows.
 Changing the address requires updating every row manually.
-```
 
 This may cause inconsistent data.
 
@@ -91,10 +73,7 @@ This may cause inconsistent data.
 A new customer could not be added unless an account already existed.
 
 Example:
-
-```text
 Cannot insert a customer without also inserting account information.
-```
 
 ---
 
@@ -103,10 +82,7 @@ Cannot insert a customer without also inserting account information.
 Deleting the last account of a customer could accidentally remove customer information.
 
 Example:
-
-```text
 Deleting the final account row may remove customer data entirely.
-```
 
 ---
 
@@ -119,10 +95,7 @@ The database satisfies 1NF because:
 - No repeating groups exist.
 
 Example:
-
-```text
 One customer record stores only one phone number and one email.
-```
 
 ---
 
@@ -134,10 +107,7 @@ The database satisfies 2NF because:
 - No partial dependencies exist.
 
 Example:
-
-```text
 AccountType, Balance, and OpenDate depend entirely on AccountId.
-```
 
 ---
 
@@ -149,12 +119,9 @@ The database satisfies 3NF because:
 - Non-key attributes depend only on the primary key.
 
 Example:
-
-```text
 Customer details are stored only in Customers table.
 Branch details are stored only in Branches table.
 Accounts table stores only foreign keys referencing these entities.
-```
 
 This removes redundancy and improves maintainability.
 
@@ -164,9 +131,7 @@ This removes redundancy and improves maintainability.
 
 The original conceptual design could have stored all banking information in one large table:
 
-```text
 Customer + Account + Branch + Loan + Transaction
-```
 
 This structure would create redundancy and anomalies.
 
@@ -187,8 +152,6 @@ Relationships were implemented using foreign keys.
 # Final Relational Schema
 
 ## Customers
-
-```text
 Customers(
     CustomerId PK,
     FirstName,
@@ -200,13 +163,10 @@ Customers(
     CreatedAt,
     UpdatedAt
 )
-```
 
 ---
 
 ## Branches
-
-```text
 Branches(
     BranchId PK,
     BranchName,
@@ -216,13 +176,9 @@ Branches(
     CreatedAt,
     UpdatedAt
 )
-```
-
 ---
 
 ## Accounts
-
-```text
 Accounts(
     AccountId PK,
     AccountNumber UNIQUE,
@@ -235,13 +191,9 @@ Accounts(
     CreatedAt,
     UpdatedAt
 )
-```
-
 ---
 
 ## Loans
-
-```text
 Loans(
     LoanId PK,
     CustomerId FK,
@@ -255,13 +207,9 @@ Loans(
     CreatedAt,
     UpdatedAt
 )
-```
-
 ---
 
 ## BankTransactions
-
-```text
 BankTransactions(
     TransactionId PK,
     AccountId FK,
@@ -272,8 +220,6 @@ BankTransactions(
     CreatedAt,
     UpdatedAt
 )
-```
-
 ---
 
 # Relationship Summary
