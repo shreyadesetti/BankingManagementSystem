@@ -16,10 +16,7 @@ This document records the usage of Generative AI tools during the development of
 ## Entry 1
 
 ### Prompt
-
-```text
-Help me generate initial ASP.NET Core MVC entity class structure for a Banking Management System using Entity Framework Core and SQL Server.
-```
+Generate initial ASP.NET Core MVC entity class structure for a Banking Management System using Entity Framework Core and SQL Server.
 
 ### AI Output Summary
 
@@ -42,10 +39,7 @@ AI Generated:
 ## Entry 2
 
 ### Prompt
-
-```text
-Help me configure Entity Framework Core code-first migration for ASP.NET Core MVC with SQL Server.
-```
+How do I configure Entity Framework Core code-first migration for ASP.NET Core MVC with SQL Server giev me some examples.
 
 ### AI Output Summary
 
@@ -69,10 +63,7 @@ AI Generated:
 ## Entry 3
 
 ### Prompt
-
-```text
-Help me scaffold CRUD controllers and views for Customers, Accounts, Branches, and Loans.
-```
+How to scaffold CRUD controllers and views for Customers, Accounts, Branches, and Loans.
 
 ### AI Output Summary
 
@@ -95,10 +86,7 @@ AI Generated:
 ## Entry 4
 
 ### Prompt
-
-```text
-Help me implement deposit and withdrawal transaction logic using Entity Framework transactions.
-```
+Give me basic logics to implement deposit and withdrawal transaction logic using Entity Framework transactions.
 
 ### AI Output Summary
 
@@ -122,9 +110,9 @@ AI Generated:
 
 ### Prompt
 
-```text
-Help me create a dashboard with aggregate metrics using COUNT, SUM, and AVG.
-```
+
+Logic to create a dashboard with aggregate metrics using COUNT, SUM, and AVG.
+
 
 ### AI Output Summary
 
@@ -148,9 +136,8 @@ AI Generated:
 
 ### Prompt
 
-```text
-Help me create README.md and NORMALIZATION.md documentation for the Banking Management System project.
-```
+
+Give me some examples of README.md and NORMALIZATION.md documentation for the Banking Management System project.
 
 ### AI Output Summary
 
